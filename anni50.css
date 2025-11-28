@@ -430,6 +430,13 @@ section {
     gap: 18px; /* Ridotto lo spazio tra le righe */
 }
 
+/* Contenitore per la sezione esperienza, per separarla dal layout a colonne */
+.contenitore-esperienza {
+    margin-top: 20px; /* Aggiunge spazio sopra la sezione esperienza */
+    border-top: 1px solid #d3c3a8; /* Linea di separazione */
+    padding-top: 18px; /* Spazio sotto la linea di separazione */
+}
+
 .riga-tratto-principale {
     display: flex;
     align-items: center;
