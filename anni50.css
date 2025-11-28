@@ -424,12 +424,7 @@ section {
 
 /* Aggiunge spaziatura verticale interna alle sezioni */
 #info-personaggio,
-#tratti-principali {
-    display: flex;
-    flex-direction: column;
-    gap: 18px; /* Ridotto lo spazio tra le righe */
-}
-
+#info-personaggio .riga-tratto-principale { margin-bottom: 18px; }
 /* Contenitore per la sezione esperienza, per separarla dal layout a colonne */
 .contenitore-esperienza {
     margin-top: 20px; /* Aggiunge spazio sopra la sezione esperienza */
@@ -442,6 +437,17 @@ section {
     align-items: center;
 }
 
+/* Regole specifiche per il layout 1/3 - 2/3 nella sezione Tratti Principali */
+#tratti-principali .colonna-tratti:nth-child(1) {
+    flex: 2 1 0%; /* Forza la proporzione a 2 parti, ignorando la base di flex */
+    min-width: 300px;
+}
+
+#tratti-principali .colonna-tratti:nth-child(2) {
+    flex: 1 1 0%; /* Forza la proporzione a 1 parte, ignorando la base di flex */
+    min-width: 200px;
+}
+
 /* Allinea le etichette nella sezione Tratti Principali */
 .riga-tratto-principale > label {
     width: 150px;
@@ -449,6 +455,11 @@ section {
 
 .specializzazione {
     margin-right: 8px;
+}
+
+/* Aggiunge lo spazio verticale corretto tra le righe SOLO nei tratti principali */
+#tratti-principali .riga-tratto-principale {
+    margin-bottom: 18px;
 }
 
 .punti {
