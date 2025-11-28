@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scheda Personaggio - Chronicles of Darkness</title>
+    <link rel="stylesheet" href="anni50.css">
+    <!-- Aggiungiamo Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <h1>Scheda Personaggio - Chronicles of Darkness</h1>
+    </header>
+
+    <main>
+        <section id="info-personaggio">
+            <div class="section-header">
+                <i class="lock-icon fas fa-eye" title="Blocca/Sblocca Sezione"></i>
+                <h2>Informazioni di Base</h2>
+            </div>
+            <div class="riga-tratto-principale">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome">
+            </div>
+            <div class="riga-tratto-principale">
+                <label for="cronaca">Cronaca:</label>
+                <input type="text" id="cronaca" name="cronaca">
+            </div>
+            <div class="riga-tratto-principale">
+                <label for="concetto">Concetto:</label>
+                <input type="text" id="concetto" name="concetto">
+            </div>
+        </section>
+        
+        <section id="attributi">
+            <div class="section-header">
+                <i class="lock-icon fas fa-eye" title="Blocca/Sblocca Sezione"></i>
+                <h2>Attributi</h2>
+            </div>
+            <div class="gruppi-tratti-container">
+                <div class="colonna-tratti">
+                    <h3>Mentali</h3>
+                    <div class="riga-tratto">
+                        <label>Intelligenza</label> <div class="punti" data-tratto="intelligenza"></div>
+                    </div>
+                    <div class="riga-tratto">
+                        <label>Prontezza</label> <div class="punti" data-tratto="prontezza"></div>
+                    </div>
+                    <div class="riga-tratto">
+                        <label>Fermezza</label> <div class="punti" data-tratto="fermezza"></div>
+                    </div>
+                </div>
+                <div class="colonna-tratti">
+                    <h3>Fisici</h3>
+                    <div class="riga-tratto">
+                        <label>Forza</label> <div class="punti" data-tratto="forza"></div>
+                    </div>
+                    <div class="riga-tratto">
+                        <label>Destrezza</label> <div class="punti" data-tratto="destrezza"></div>
+                    </div>
+                    <div class="riga-tratto">
+                        <label>Costituzione</label> <div class="punti" data-tratto="costituzione"></div>
+                    </div>
+                </div>
+                <div class="colonna-tratti">
+                    <h3>Sociali</h3>
+                    <div class="riga-tratto">
+                        <label>Presenza</label> <div class="punti" data-tratto="presenza"></div>
+                    </div>
+                    <div class="riga-tratto">
+                        <label>Persuasione</label> <div class="punti" data-tratto="persuasione"></div>
+                    </div>
+                    <div class="riga-tratto">
+                        <label>Autocontrollo</label> <div class="punti" data-tratto="autocontrollo"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="abilita">
+            <div class="section-header">
+                <i class="lock-icon fas fa-eye" title="Blocca/Sblocca Sezione"></i>
+                <h2>Abilità</h2>
+            </div>
+            <div class="gruppi-tratti-container">
+                <div class="colonna-tratti">
+                    <h3>Mentali</h3>
+                    <div class="riga-tratto"><span class="specializzazione"></span><label>Accademiche</label><div class="punti" data-tratto="accademiche"></div></div>
+                    <div class="riga-tratto"><span class="specializzazione"></span><label>Computer</label><div class="punti" data-tratto="computer"></div></div>
+                    <div class="riga-tratto"><span class="specializzazione"></span><label>Espressività</label><div class="punti" data-tratto="espressivita"></div></div>
+                    <div class="riga-tratto"><span class="specializzazione"></span><label>Indagare</label><div class="punti" data-tratto="indagare"></div></div>
+                    <div class="riga-tratto"><span class="specializzazione"></span><label>Medicina</label><div class="punti" data-tratto="medicina"></div></div>
+                    <div class="riga-tratto"><span class="specializzazione"></span><label>Occulto</label><div class="punti" data-tratto="occulto"></div></div>
+                    <div class="riga-tratto"><span class="specializzazione"></span><label>Politica</label><div class="punti" data-tratto="politica"></div></div>
+                    <div class="riga-tratto"><span class="specializzazione"></span><label>Scienza</label><div class="punti" data-tratto="scienza"></div></div>
+                </div>
+                <div class="colonna-tratti">
+                    <h3>Fisiche</h3>
+                    <div class="riga-tratto"><span class="specializzazione"></span><label>Armi da Fuoco</label><div class="punti" data-tratto="armi_da_fuoco"></div></div>
+                    <div class="riga-tratto"><span class="specializzazione"></span><label>Armi da Mischia</label><div class="punti" data-tratto="armi_da_mischia"></div></div>
+                    <div class="riga-tratto"><span class="specializzazione"></span><label>Atletica</label><div class="punti" data-tratto="atletica"></div></div>
+                    <div class="riga-tratto"><span class="specializzazione"></span><label>Furtività</label><div class="punti" data-tratto="furtivita"></div></div>
+                    <div class="riga-tratto"><span class="specializzazione"></span><label>Guidare</label><div class="punti" data-tratto="guidare"></div></div>
+                    <div class="riga-tratto"><span class="specializzazione"></span><label>Ladro</label><div class="punti" data-tratto="ladro"></div></div>
+                    <div class="riga-tratto"><span class="specializzazione"></span><label>Rissa</label><div class="punti" data-tratto="rissa"></div></div>
+                    <div class="riga-tratto"><span class="specializzazione"></span><label>Sopravvivenza</label><div class="punti" data-tratto="sopravvivenza"></div></div>
+                </div>
+                <div class="colonna-tratti">
+                    <h3>Sociali</h3>
+                    <div class="riga-tratto"><span class="specializzazione"></span><label>Animale</label><div class="punti" data-tratto="animale"></div></div>
+                    <div class="riga-tratto"><span class="specializzazione"></span><label>Conoscenza della Strada</label><div class="punti" data-tratto="conoscenza_strada"></div></div>
+                    <div class="riga-tratto"><span class="specializzazione"></span><label>Empatia</label><div class="punti" data-tratto="empatia"></div></div>
+                    <div class="riga-tratto"><span class="specializzazione"></span><label>Intimidire</label><div class="punti" data-tratto="intimidire"></div></div>
+                    <div class="riga-tratto"><span class="specializzazione"></span><label>Perspicacia</label><div class="punti" data-tratto="perspicacia"></div></div>
+                    <div class="riga-tratto"><span class="specializzazione"></span><label>Raggirare</label><div class="punti" data-tratto="raggirare"></div></div>
+                    <div class="riga-tratto"><span class="specializzazione"></span><label>Socialità</label><div class="punti" data-tratto="socialita"></div></div>
+                    <div class="riga-tratto"><span class="specializzazione"></span><label>Sotterfugio</label><div class="punti" data-tratto="sotterfugio"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="specializzazioni-attive">
+            <div class="section-header">
+                <i class="lock-icon fas fa-eye" title="Blocca/Sblocca Sezione"></i>
+                <h2>Specializzazioni</h2>
+            </div>
+            <div class="colonna-tratti">
+                <!-- Le righe delle specializzazioni verranno inserite qui dinamicamente da JavaScript -->
+                <div id="contenitore-specializzazioni"></div>
+            </div>
+        </section>
+
+        <section id="pregi">
+            <div class="section-header">
+                <i class="lock-icon fas fa-eye" title="Blocca/Sblocca Sezione"></i>
+                <h2>Pregi</h2>
+            </div>
+            <div class="gruppi-tratti-container">
+                <div class="colonna-tratti">
+                    <div class="contenitore-pregi" id="pregi-col-1"></div>
+                    <div class="pregio-buttons">
+                        <button class="aggiungi-pregio-btn" data-colonna="pregi-col-1">+</button>
+                        <button class="rimuovi-pregio-btn" data-colonna="pregi-col-1">-</button>
+                    </div>
+                </div>
+                <div class="colonna-tratti">
+                    <div class="contenitore-pregi" id="pregi-col-2"></div>
+                    <div class="pregio-buttons">
+                        <button class="aggiungi-pregio-btn" data-colonna="pregi-col-2">+</button>
+                        <button class="rimuovi-pregio-btn" data-colonna="pregi-col-2">-</button>
+                    </div>
+                </div>
+                <div class="colonna-tratti">
+                    <div class="contenitore-pregi" id="pregi-col-3"></div>
+                    <div class="pregio-buttons">
+                        <button class="aggiungi-pregio-btn" data-colonna="pregi-col-3">+</button>
+                        <button class="rimuovi-pregio-btn" data-colonna="pregi-col-3">-</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tratti-principali">
+            <div class="section-header">
+                <i class="lock-icon fas fa-eye" title="Blocca/Sblocca Sezione"></i>
+                <h2>Tratti Principali</h2>
+            </div>
+            <div class="riga-tratto-principale">
+                <label for="virtu">Virtù:</label>
+                <input type="text" id="virtu" name="virtu">
+            </div>
+            <div class="riga-tratto-principale">
+                <label for="vizio">Vizio:</label>
+                <input type="text" id="vizio" name="vizio">
+            </div>
+            <div class="riga-tratto-principale riga-tratto-spaziato">
+                <label for="integrita">Integrità:</label>
+                <div class="punti" data-tratto="integrita" data-max="15"></div>
+            </div>
+            <div class="riga-tratto-principale riga-doppia-scala">
+                <label>Salute Fisica:</label>
+                <div class="contenitore-doppia-scala" id="scala-salute" data-tratto="salute" data-max="15"></div>
+            </div>
+            <div class="riga-tratto-principale riga-doppia-scala">
+                <label>Sanità Mentale:</label>
+                <div class="contenitore-doppia-scala" id="scala-sanita" data-tratto="sanita" data-max="15"></div>
+            </div>
+            <div class="riga-tratto-principale riga-doppia-scala">
+                <label>Volontà:</label>
+                <div class="contenitore-doppia-scala" id="scala-volonta" data-tratto="volonta" data-max="15"></div>
+            </div>
+            <div class="riga-tratto-principale riga-tratto-semplice">
+                <label for="taglia">Taglia:</label>
+                <input type="number" id="taglia" value="5" class="valore-calcolato">
+            </div>
+            <div class="riga-tratto-principale">
+                <label for="valore-iniziativa">Mod. Iniziativa:</label>
+                <span id="valore-iniziativa" class="valore-calcolato">0</span>
+            </div>
+            <div class="riga-tratto-principale">
+                <label for="valore-difesa">Difesa:</label>
+                <span id="valore-difesa" class="valore-calcolato">0</span>
+            </div>
+            <div class="riga-tratto-principale">
+                <label for="valore-velocita">Velocità:</label>
+                <span id="valore-velocita" class="valore-calcolato">0</span>
+            </div>
+            <div class="riga-tratto-principale">
+                <label for="armatura">Armatura:</label>
+                <input type="text" id="armatura" value="0" class="valore-calcolato">
+            </div>
+            <div class="riga-tratto-principale riga-tratto-spaziato">
+                <label for="esperienza-totale">Exp. Totale:</label>
+                <input type="number" id="esperienza-totale" value="0">
+            </div>
+            <div class="riga-tratto-principale">
+                <label for="esperienza-spesa">Exp. Spesa:</label>
+                <input type="number" id="esperienza-spesa" value="0">
+            </div>
+            <div class="riga-tratto-principale">
+                <label for="esperienza-rimanente">Exp. Rimanente:</label>
+                <span id="esperienza-rimanente" class="valore-calcolato">0</span>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <button id="salva-btn">Salva Personaggio</button>
+        <button id="carica-btn">Carica Personaggio</button>
+    </footer>
+
+    <!-- Carichiamo un unico script che gestirà tutto -->
+    <script src="script.js"></script>
+
+</body>
+</html>
