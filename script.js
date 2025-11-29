@@ -19,6 +19,9 @@ function avviaApp() {
 
     const MAX_DOTS_DEFAULT = 5;
 
+    // Variabile per memorizzare l'URL dell'immagine caricata
+    let imageUrlCorrente = null;
+
     // --- FUNZIONI DI INIZIALIZZAZIONE ---
 
     /**
@@ -161,6 +164,45 @@ function avviaApp() {
         });
     }
 
+    /**
+     * Inizializza la logica per il caricamento dell'immagine del personaggio.
+     */
+    function inizializzaCaricamentoImmagine() {
+        const imageContainer = document.getElementById('character-image-container');
+        const imageUploadInput = document.getElementById('image-upload');
+        const imagePreview = document.getElementById('character-image-preview');
+
+        if (!imageContainer || !imageUploadInput || !imagePreview) return;
+
+        // Quando si clicca sul box, si attiva l'input nascosto
+        imageContainer.addEventListener('click', () => {
+            imageUploadInput.click();
+        });
+
+        // Quando un file viene selezionato
+        imageUploadInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                // Mostra un'anteprima locale istantanea
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imagePreview.src = e.target.result;
+                    imageContainer.classList.add('has-image');
+                };
+                reader.readAsDataURL(file);
+
+                // Carica l'immagine su Firebase Storage
+                caricaImmagineSuStorage(file);
+            }
+        });
+    }
+
+    function mostraImmagineCaricata(url) {
+        const imageContainer = document.getElementById('character-image-container');
+        const imagePreview = document.getElementById('character-image-preview');
+        imagePreview.src = url;
+        imageContainer.classList.add('has-image');
+    }
     /**
      * Crea e aggiunge una nuova riga per un pregio in una colonna.
      * @param {HTMLElement} contenitore - L'elemento che conterrà la nuova riga.
@@ -442,6 +484,7 @@ function avviaApp() {
             vizio: document.getElementById('vizio').value,
             taglia: document.getElementById('taglia').value,
             armatura: document.getElementById('armatura').value,
+            imageUrl: imageUrlCorrente, // Aggiungi l'URL dell'immagine
             esperienzaTotale: document.getElementById('esperienza-totale').value,
             esperienzaSpesa: document.getElementById('esperienza-spesa').value,
             tratti: {},
@@ -499,6 +542,11 @@ function avviaApp() {
         document.getElementById('armatura').value = personaggio.armatura || 0;
         document.getElementById('esperienza-totale').value = personaggio.esperienzaTotale || 0;
         document.getElementById('esperienza-spesa').value = personaggio.esperienzaSpesa || 0;
+
+        if (personaggio.imageUrl) {
+            imageUrlCorrente = personaggio.imageUrl;
+            mostraImmagineCaricata(personaggio.imageUrl);
+        }
 
         if (personaggio.tratti) {
             for (const tratto in personaggio.tratti) {
@@ -637,6 +685,32 @@ function avviaApp() {
     }
 
     /**
+     * Carica un file immagine su Firebase Storage.
+     * @param {File} file Il file immagine da caricare.
+     */
+    async function caricaImmagineSuStorage(file) {
+        const storage = firebase.storage();
+        // Crea un percorso unico per l'immagine per evitare sovrascritture
+        const percorsoImmagine = `character_images/${Date.now()}_${file.name}`;
+        const storageRef = storage.ref(percorsoImmagine);
+
+        try {
+            // Carica il file
+            const snapshot = await storageRef.put(file);
+            console.log('Immagine caricata con successo!');
+
+            // Ottieni l'URL pubblico per il download
+            const url = await snapshot.ref.getDownloadURL();
+            imageUrlCorrente = url; // Salva l'URL per il salvataggio su Firestore
+            console.log('URL immagine:', url);
+            controllaModifiche(); // Abilita il pulsante Salva
+        } catch (error) {
+            console.error("Errore durante il caricamento dell'immagine:", error);
+            alert("Si è verificato un errore durante il caricamento dell'immagine.");
+        }
+    }
+
+    /**
      * Confronta lo stato attuale della scheda con l'ultimo stato salvato
      * e abilita/disabilita il pulsante di salvataggio di conseguenza.
      */
@@ -659,6 +733,7 @@ function avviaApp() {
     inizializzaRimozionePregi(); // Aggiunto per inizializzare i nuovi pulsanti
     inizializzaAggiuntaPregi();
     inizializzaBloccoSezioni();
+    inizializzaCaricamentoImmagine();
     // Calcola i valori iniziali
     calcolaTrattiDerivati();
     // Calcola l'esperienza iniziale
@@ -707,5 +782,6 @@ function caricaScript(src) {
 // Carica le librerie di Firebase in sequenza, poi avvia l'applicazione.
 caricaScript("https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js")
     .then(() => caricaScript("https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"))
+    .then(() => caricaScript("https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js")) // Aggiungi la libreria per Storage
     .then(avviaApp)
     .catch(err => console.error("Errore nel caricamento delle librerie Firebase:", err));

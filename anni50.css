@@ -452,7 +452,7 @@ section {
 }
 
 /* Ripristiniamo il comportamento a colonne uguali per le altre sezioni */
-#attributi .colonna-tratti, #abilita .colonna-tratti, #pregi .colonna-tratti {
+#info-personaggio .colonna-tratti, #attributi .colonna-tratti, #abilita .colonna-tratti, #pregi .colonna-tratti {
     flex: 1;
 }
 
@@ -464,6 +464,58 @@ section {
 /* Aggiunge lo spazio verticale corretto tra le righe SOLO nei tratti principali */
 #tratti-principali .riga-tratto-principale {
     padding-bottom: 18px; /* Rimosso !important, non più necessario con la struttura corretta */
+}
+
+/* Stile per il box dell'immagine del personaggio */
+.character-image-box {
+    border: 2px dashed #c9c3b5;
+    border-radius: 8px;
+    width: 100%;
+    height: 100%;
+    min-height: 150px; /* Altezza minima per essere visibile */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #c9c3b5;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.character-image-box.has-image .image-placeholder {
+    opacity: 0; /* Nasconde il placeholder con una transizione */
+}
+.character-image-box.has-image img {
+    opacity: 1; /* Mostra l'immagine con una transizione */
+}
+
+.character-image-box:hover {
+    border-color: #8c2d19;
+    color: #8c2d19;
+}
+.character-image-box .image-placeholder span {
+    font-size: 48px;
+}
+
+/* Posiziona sia l'immagine che il placeholder in modo assoluto per sovrapporli */
+#character-image-preview,
+.image-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.3s ease;
+}
+
+#character-image-preview {
+    opacity: 0; /* Nascosta di default */
+    object-fit: cover; /* Assicura che l'immagine copra l'area senza distorcersi */
+    border-radius: 6px; /* Arrotonda gli angoli dell'immagine */
+}
+
+/* Rende il box dell'immagine un contenitore posizionale */
+.character-image-box {
+    position: relative;
 }
 
 .punti {
