@@ -471,21 +471,17 @@ section {
     border: 2px dashed #c9c3b5;
     border-radius: 8px;
     width: 100%;
-    height: 100%;
     min-height: 150px; /* Altezza minima per essere visibile */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     color: #c9c3b5;
     cursor: pointer;
     transition: all 0.2s ease;
+    position: relative; /* Fondamentale per il posizionamento assoluto dei figli */
 }
 .character-image-box.has-image .image-placeholder {
     opacity: 0; /* Nasconde il placeholder con una transizione */
 }
 .character-image-box.has-image img {
-    opacity: 1; /* Mostra l'immagine con una transizione */
+    opacity: 1 !important; /* Forza la visibilità dell'immagine quando presente */
 }
 
 .character-image-box:hover {
@@ -507,17 +503,22 @@ section {
     transition: opacity 0.3s ease;
 }
 
+/* Aggiunta per centrare il contenuto del placeholder */
+.image-placeholder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 #character-image-preview {
     opacity: 0; /* Nascosta di default */
+    z-index: 1; /* Mette l'immagine sopra il placeholder */
     object-fit: cover; /* Assicura che l'immagine copra l'area senza distorcersi */
     border-radius: 6px; /* Arrotonda gli angoli dell'immagine */
 }
 
 /* Rende il box dell'immagine un contenitore posizionale */
-.character-image-box {
-    position: relative;
-}
-
 .punti {
     display: flex;
     gap: 4px;
