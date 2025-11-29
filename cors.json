@@ -1,0 +1,11 @@
+[
+  {
+    "origin": [
+      "http://127.0.0.1:5500",
+      "https://ninnonnan.github.io"
+    ],
+    "method": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    "responseHeader": ["Content-Type", "Authorization"],
+    "maxAgeSeconds": 3600
+  }
+]
