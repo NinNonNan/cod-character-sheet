@@ -121,6 +121,7 @@ label {
     background-color: #dcd8cd; /* Stesso colore degli elementi vuoti */
     border-color: #999;
     transition: background-color 0.2s ease;
+    margin-right: 8px; /* Aggiunge spazio tra il box e il nome dell'abilità */
 }
 .specializzazione.filled {
     background-color: #3a3a3a;
@@ -247,7 +248,15 @@ section {
 .gruppi-tratti-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 30px; /* Aumentato lo spazio tra le colonne */
+}
+
+/* Applica un riquadro a CIASCUNA colonna degli attributi */
+#attributi .colonna-tratti {
+    border: 1px solid #d3c3a8;
+    border-radius: 8px;
+    padding: 15px; /* Leggermente ridotto per un aspetto migliore */
+    background-color: #fdfcf7; /* Stesso sfondo del main per coerenza */
 }
 
 .colonna-tratti {
@@ -263,6 +272,11 @@ section {
     margin-top: 0;
 }
 
+/* Centra i titoli solo nella sezione Abilità */
+#abilita .colonna-tratti h3 {
+    text-align: center;
+}
+
 .riga-tratto {
     display: flex;
     align-items: center;
@@ -270,7 +284,7 @@ section {
 }
 
 .riga-tratto label {
-    padding-right: 10px;
+    padding-right: 25px; /* Aumentato lo spazio per avvicinare i pallini */
 }
 
 /* Spinge i pallini a destra, mantenendo il resto a sinistra */
@@ -471,7 +485,7 @@ section {
     border: 2px dashed #c9c3b5;
     border-radius: 8px;
     width: 100%;
-    min-height: 150px; /* Altezza minima per essere visibile */
+    aspect-ratio: 1 / 1; /* Forza il box ad essere un quadrato (altezza = larghezza) */
     color: #c9c3b5;
     cursor: pointer;
     transition: all 0.2s ease;

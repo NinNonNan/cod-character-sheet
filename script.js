@@ -478,6 +478,9 @@ function avviaApp() {
             nome: document.getElementById('nome').value,
             cronaca: document.getElementById('cronaca').value,
             concetto: document.getElementById('concetto').value,
+            giocatore: document.getElementById('giocatore').value,
+            eta: document.getElementById('eta').value,
+            fazione: document.getElementById('fazione').value,
             virtu: document.getElementById('virtu').value,
             vizio: document.getElementById('vizio').value,
             taglia: document.getElementById('taglia').value,
@@ -534,6 +537,9 @@ function avviaApp() {
         document.getElementById('nome').value = personaggio.nome || '';
         document.getElementById('cronaca').value = personaggio.cronaca || '';
         document.getElementById('concetto').value = personaggio.concetto || '';
+        document.getElementById('giocatore').value = personaggio.giocatore || '';
+        document.getElementById('eta').value = personaggio.eta || '';
+        document.getElementById('fazione').value = personaggio.fazione || '';
         document.getElementById('virtu').value = personaggio.virtu || '';
         document.getElementById('vizio').value = personaggio.vizio || '';
         document.getElementById('taglia').value = personaggio.taglia || 5;
