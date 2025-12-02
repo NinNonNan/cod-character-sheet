@@ -246,28 +246,10 @@
         <button id="carica-btn" style="display: none;">Carica Personaggio</button>
     </footer>
 
+    <!-- Carichiamo gli SDK di Firebase (necessari prima di script.js) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <!-- Carichiamo un unico script che gestirà tutto -->
     <script src="script.js"></script>
-
-    <script>
-        // Esegui questo codice quando la pagina è completamente caricata
-        window.addEventListener('DOMContentLoaded', (event) => {
-            // Crea un oggetto URLSearchParams per analizzare i parametri dell'URL
-            const params = new URLSearchParams(window.location.search);
-            
-            // Controlla se esiste un parametro 'charId' o 'id'
-            const charId = params.get('charId') || params.get('id');
-            if (charId) {
-                console.log(`Trovato ID personaggio nell'URL: ${charId}. Tentativo di caricamento...`);
-                // La funzione in script.js si chiama `caricaPersonaggioDaURL` e non prende argomenti,
-                // ma legge l'URL da sola. Quindi basta invocarla.
-                if (typeof avviaApp === 'function') {
-                    // Non possiamo chiamare direttamente la funzione interna, ma il flusso di script.js
-                    // la chiama già in automatico. Lo script qui è solo per coerenza con la richiesta precedente,
-                    // ma in realtà lo script principale gestisce già tutto.
-                }
-            }
-        });
-    </script>
 </body>
 </html>

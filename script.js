@@ -1,8 +1,9 @@
 /**
  * Funzione principale che viene eseguita dopo aver caricato le librerie di Firebase.
  */
-function avviaApp() {
-    // Your web app's Firebase configuration
+document.addEventListener('DOMContentLoaded', () => {
+    // --- 1. CONFIGURAZIONE E INIZIALIZZAZIONE FIREBASE ---
+    // Questa è la TUA configurazione, come presente nel file.
     const firebaseConfig = {
         apiKey: "AIzaSyA-Vm3aVHy7m230s_YGuBYgL0MRlnF2hts",
         authDomain: "scheda-personaggio-cod.firebaseapp.com",
@@ -12,10 +13,11 @@ function avviaApp() {
         appId: "1:594233148940:web:9c6321b433735084269029"
     };
 
-    // Initialize Firebase
+    // Inizializza Firebase
     firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-    // --- INIZIO CODICE ORIGINALE DELL'APP ---
+    // --- 2. DEFINIZIONE DELLE VARIABILI E COSTANTI GLOBALI DELL'APP ---
 
     const MAX_DOTS_DEFAULT = 5;
 
@@ -23,7 +25,7 @@ function avviaApp() {
     let imageUrlCorrente = null;
 
     // --- FUNZIONI DI INIZIALIZZAZIONE ---
-
+    
     /**
      * Crea i pallini per tutti gli elementi con classe 'punti'.
      */
@@ -59,7 +61,7 @@ function avviaApp() {
             quadrato.dataset.listenerAggiunto = 'true';
         });
     }
-
+    
     /**
      * Crea le scale doppie (pallino + quadretto) per Salute e Volontà.
      */
@@ -90,7 +92,7 @@ function avviaApp() {
             container.addEventListener('click', gestisciClickTracciato);
         });
     }
-
+    
     /**
      * Inizializza la funzionalità di blocco/sblocco per le sezioni.
      */
@@ -129,7 +131,7 @@ function avviaApp() {
             });
         });
     }
-
+    
     /**
      * Inizializza i pulsanti per aggiungere dinamicamente i pregi.
      */
@@ -144,7 +146,7 @@ function avviaApp() {
             });
         });
     }
-
+    
     /**
      * Inizializza i pulsanti per rimuovere l'ultimo pregio aggiunto in una colonna.
      */
@@ -163,7 +165,7 @@ function avviaApp() {
             });
         });
     }
-
+    
     /**
      * Inizializza la logica per il caricamento dell'immagine del personaggio.
      */
@@ -193,14 +195,14 @@ function avviaApp() {
 
             }
         });
-    }
-
+    }    
+    
     function mostraImmagineCaricata(url) {
         const imageContainer = document.getElementById('character-image-container');
         const imagePreview = document.getElementById('character-image-preview');
         imagePreview.src = url;
         imageContainer.classList.add('has-image');
-    }
+    }    
     /**
      * Crea e aggiunge una nuova riga per un pregio in una colonna.
      * @param {HTMLElement} contenitore - L'elemento che conterrà la nuova riga.
@@ -233,7 +235,7 @@ function avviaApp() {
         // Inizializza i pallini per la nuova riga e imposta il valore caricato
         inizializzaSingoloTratto(punti, valore);
     }
-
+    
     /**
      * Inizializza i pallini per un singolo contenitore.
      * @param {HTMLElement} container - Il contenitore .punti da inizializzare.
@@ -253,7 +255,7 @@ function avviaApp() {
         container.addEventListener('click', gestisciClickPallino);
         aggiornaPallini(container, valoreIniziale);
     }
-
+    
     /**
      * Gestisce il click su un contenitore di pallini.
      * @param {Event} event L'evento del click.
@@ -279,7 +281,7 @@ function avviaApp() {
         // Dopo aver aggiornato un attributo, ricalcola i tratti derivati
         calcolaTrattiDerivati();
     }
-
+    
     /**
      * Aggiorna lo stato visuale dei pallini in un contenitore.
      * @param {HTMLElement} container Il div .punti che contiene i pallini.
@@ -298,9 +300,9 @@ function avviaApp() {
         // Aggiorna lo stato della specializzazione associata
         aggiornaStatoSpecializzazione(container.closest('.riga-tratto'), value);
     }
-
+    
     // --- FUNZIONI PER TRATTI DERIVATI E TRACCIATI ---
-
+    
     /**
      * Legge gli attributi e calcola i valori derivati come Salute e Volontà.
      */
@@ -336,7 +338,7 @@ function avviaApp() {
         document.getElementById('valore-difesa').textContent = difesaCalc;
         document.getElementById('valore-velocita').textContent = velocitaCalc;
     }
-
+    
     /**
      * Recupera il valore numerico di un tratto dai suoi pallini.
      * @param {string} nomeTratto Il valore di data-tratto.
@@ -352,7 +354,7 @@ function avviaApp() {
         }
         return filledDots;
     }
-
+    
     /**
      * Gestisce il click su un quadretto di un tracciato (Salute, Volontà o Integrità).
      */
@@ -387,7 +389,7 @@ function avviaApp() {
             target.classList.toggle('sanita-spesa');
         }
     }
-    
+        
     /**
      * Abilita o disabilita la casella di specializzazione in base al valore dell'abilità.
      * @param {HTMLElement} rigaTratto La riga che contiene sia l'abilità che la specializzazione.
@@ -404,7 +406,7 @@ function avviaApp() {
             specializzazione.classList.remove('disabilitata');
         }
     }
-
+    
     /**
      * Aggiorna la sezione "Specializzazioni" in base alle caselle spuntate nelle abilità.
      */
@@ -444,7 +446,7 @@ function avviaApp() {
             contenitore.appendChild(rigaSpec);
         });
     }
-
+    
     /**
      * Calcola e aggiorna l'esperienza rimanente.
      */
@@ -454,16 +456,9 @@ function avviaApp() {
         const rimanente = totale - spesa;
         document.getElementById('esperienza-rimanente').textContent = rimanente;
     }
-
-    // Aggiungi listener per aggiornare l'esperienza quando i valori cambiano
-    document.getElementById('esperienza-totale').addEventListener('input', calcolaEsperienza);
-    document.getElementById('esperienza-spesa').addEventListener('input', calcolaEsperienza);
-
-    // Aggiungi un listener per il campo Taglia per ricalcolare quando cambia
-    document.getElementById('taglia').addEventListener('input', calcolaTrattiDerivati);
-
+    
     // --- FUNZIONI DI SALVATAGGIO E CARICAMENTO ---
-
+    
     // Variabile globale per tenere traccia dell'ID del personaggio attualmente caricato
     let personaggioIdCorrente = null;
 
@@ -474,20 +469,14 @@ function avviaApp() {
      * Raccoglie tutti i dati dalla scheda e li restituisce come un oggetto.
      */
     function raccogliDatiScheda() {
-        const personaggio = {
-            nome: document.getElementById('nome').value,
-            cronaca: document.getElementById('cronaca').value,
-            concetto: document.getElementById('concetto').value,
-            giocatore: document.getElementById('giocatore').value,
-            eta: document.getElementById('eta').value,
-            fazione: document.getElementById('fazione').value,
-            virtu: document.getElementById('virtu').value,
-            vizio: document.getElementById('vizio').value,
-            taglia: document.getElementById('taglia').value,
-            armatura: document.getElementById('armatura').value,
-            imageUrl: document.getElementById('character-image-preview').src, // Salva la stringa Base64 dell'anteprima
-            esperienzaTotale: document.getElementById('esperienza-totale').value,
-            esperienzaSpesa: document.getElementById('esperienza-spesa').value,
+        const personaggio = { // Raccoglie i dati comuni a entrambe le schede
+            nome: document.getElementById('nome')?.value || '',
+            cronaca: document.getElementById('cronaca')?.value || '',
+            concetto: document.getElementById('concetto')?.value || '',
+            virtu: document.getElementById('virtu')?.value || '',
+            vizio: document.getElementById('vizio')?.value || '',
+            taglia: document.getElementById('taglia')?.value || 5,
+            armatura: document.getElementById('armatura')?.value || 0,
             tratti: {},
             specializzazioni: {},
             testoSpecializzazioni: {},
@@ -495,6 +484,22 @@ function avviaApp() {
             sezioniBloccate: {},
             tracciati: {}
         };
+
+        // Raccoglie dati specifici della scheda standard, se presenti
+        const giocatoreInput = document.getElementById('giocatore');
+        if (giocatoreInput) personaggio.giocatore = giocatoreInput.value;
+
+        const etaInput = document.getElementById('eta');
+        if (etaInput) personaggio.eta = etaInput.value;
+
+        const fazioneInput = document.getElementById('fazione');
+        if (fazioneInput) personaggio.fazione = fazioneInput.value;
+
+        const expTotaleInput = document.getElementById('esperienza-totale');
+        if (expTotaleInput) personaggio.esperienzaTotale = expTotaleInput.value;
+
+        const expSpesaInput = document.getElementById('esperienza-spesa');
+        if (expSpesaInput) personaggio.esperienzaSpesa = expSpesaInput.value;
 
         document.querySelectorAll('.punti').forEach(c => { personaggio.tratti[c.dataset.tratto] = getValoreTratto(c.dataset.tratto); });
         document.querySelectorAll('#abilita .riga-tratto').forEach(r => {
@@ -530,22 +535,31 @@ function avviaApp() {
      * Popola l'intera scheda usando un oggetto dati del personaggio.
      * @param {object} personaggio L'oggetto con i dati del personaggio.
      */
-    function popolaSchedaConDati(personaggio) {
+    function popolaSchedaConDati(personaggio) { // Rinominiamo per chiarezza
         // Disabilita temporaneamente il controllo delle modifiche mentre si popola la scheda
         document.body.removeEventListener('input', controllaModifiche);
         document.body.removeEventListener('click', controllaModifiche);
         document.getElementById('nome').value = personaggio.nome || '';
         document.getElementById('cronaca').value = personaggio.cronaca || '';
         document.getElementById('concetto').value = personaggio.concetto || '';
-        document.getElementById('giocatore').value = personaggio.giocatore || '';
-        document.getElementById('eta').value = personaggio.eta || '';
-        document.getElementById('fazione').value = personaggio.fazione || '';
+        
+        // Campi presenti solo in character.html
+        const giocatoreInput = document.getElementById('giocatore');
+        if (giocatoreInput) giocatoreInput.value = personaggio.giocatore || '';
+        const etaInput = document.getElementById('eta');
+        if (etaInput) etaInput.value = personaggio.eta || '';
+        const fazioneInput = document.getElementById('fazione');
+        if (fazioneInput) fazioneInput.value = personaggio.fazione || '';
+
         document.getElementById('virtu').value = personaggio.virtu || '';
         document.getElementById('vizio').value = personaggio.vizio || '';
         document.getElementById('taglia').value = personaggio.taglia || 5;
         document.getElementById('armatura').value = personaggio.armatura || 0;
-        document.getElementById('esperienza-totale').value = personaggio.esperienzaTotale || 0;
-        document.getElementById('esperienza-spesa').value = personaggio.esperienzaSpesa || 0;
+        
+        const expTotaleInput = document.getElementById('esperienza-totale');
+        if (expTotaleInput) expTotaleInput.value = personaggio.esperienzaTotale || 0;
+        const expSpesaInput = document.getElementById('esperienza-spesa');
+        if (expSpesaInput) expSpesaInput.value = personaggio.esperienzaSpesa || 0;
 
         if (personaggio.imageUrl) {
             // Se l'URL inizia con 'data:image', è una stringa Base64. Altrimenti è un vecchio URL di storage.
@@ -561,7 +575,7 @@ function avviaApp() {
 
         if (personaggio.specializzazioni) {
             for (const tratto in personaggio.specializzazioni) {
-                const riga = document.querySelector(`.punti[data-tratto="${tratto}"]`).closest('.riga-tratto');
+                const riga = document.querySelector(`.punti[data-tratto="${tratto}"]`)?.closest('.riga-tratto');
                 if (riga) riga.querySelector('.specializzazione').classList.toggle('filled', personaggio.specializzazioni[tratto]);
             }
         }
@@ -598,7 +612,7 @@ function avviaApp() {
         calcolaTrattiDerivati();
 
         // Calcola l'esperienza rimanente dopo aver caricato i dati
-        calcolaEsperienza();
+        if (expTotaleInput) calcolaEsperienza();
 
         if (personaggio.tracciati) {
             const caricaStatoTracciato = (id, stati) => {
@@ -617,25 +631,50 @@ function avviaApp() {
         }
     }
 
+    // --- 3. LOGICA SPECIFICA PER PAGINA ---
+
+    // Funzione per caricare i personaggi nella lista di index.html
+    async function caricaListaPersonaggi() {
+        const listaElement = document.getElementById('lista-personaggi');
+        try {
+            const querySnapshot = await db.collection("characters").get();
+            listaElement.innerHTML = ''; // Pulisci la lista
+
+            if (querySnapshot.empty) {
+                listaElement.innerHTML = '<li>Nessun personaggio trovato nel database.</li>';
+                return;
+            }
+
+            querySnapshot.forEach((doc) => {
+                const personaggio = doc.data();
+                const nomePersonaggio = personaggio.nome || 'Personaggio senza nome';
+                const li = document.createElement('li');
+                // Il link punta a character.html per la visualizzazione completa
+                li.innerHTML = `<a href="character.html?id=${doc.id}">${nomePersonaggio}</a>`;
+                listaElement.appendChild(li);
+            });
+        } catch (error) {
+            console.error("Errore nel caricamento dei personaggi da Firebase: ", error);
+            listaElement.innerHTML = '<li>Errore nel caricamento dei personaggi. Controlla la console.</li>';
+        }
+    }
+
     /**
      * Carica un personaggio dal database Firestore in base all'ID nell'URL.
      */
     async function caricaPersonaggioDaURL() {
         console.log("Avvio di caricaPersonaggioDaURL...");
-        const db = firebase.firestore(); // Ora firebase è definito
-
         const params = new URLSearchParams(window.location.search);
         const id = params.get('id');
 
         if (id) {
             personaggioIdCorrente = id;
-            const docRef = db.collection("personaggi").doc(id); // Crea il riferimento al documento
+            const docRef = db.collection("characters").doc(id); // Usa la collezione "characters"
             const docSnap = await docRef.get(); // Usa il metodo .get() della versione compat
 
             if (docSnap.exists) {
                 console.log("Personaggio caricato dal DB:", docSnap.data());
                 popolaSchedaConDati(docSnap.data());
-                alert('Personaggio caricato con successo!');
                 return true; // Indica che il caricamento è avvenuto con successo
             } else {
                 alert("Personaggio non trovato! L'ID nell'URL potrebbe essere errato.");
@@ -652,15 +691,12 @@ function avviaApp() {
      */
     async function salvaPersonaggioSuServer() {
         console.log("Pulsante 'Salva Personaggio' cliccato. Inizio processo di salvataggio...");
-
-        const db = firebase.firestore(); // Ora firebase è definito
         console.log("Ottenuto riferimento al database Firestore.");
 
         const datiPersonaggio = raccogliDatiScheda();
         console.log("Dati della scheda raccolti:", datiPersonaggio);
 
         try {
-            console.log("Entro nel blocco try. ID personaggio corrente:", personaggioIdCorrente);
             if (personaggioIdCorrente) {
                 // Aggiorna un personaggio esistente
                 console.log(`Aggiornamento personaggio esistente con ID: ${personaggioIdCorrente}`);
@@ -671,7 +707,7 @@ function avviaApp() {
             } else {
                 // Crea un nuovo personaggio
                 console.log("Creazione di un nuovo personaggio...");
-                const docRef = await db.collection("personaggi").add(datiPersonaggio);
+                const docRef = await db.collection("characters").add(datiPersonaggio);
                 personaggioIdCorrente = docRef.id;
                 statoSalvato = JSON.stringify(datiPersonaggio); // Aggiorna lo stato salvato
                 document.getElementById('salva-btn').disabled = true; // Disabilita il pulsante dopo il salvataggio
@@ -700,12 +736,9 @@ function avviaApp() {
         salvaBtn.disabled = (statoAttuale === statoSalvato);
     }
 
-    // Sostituisci i vecchi listener con quelli nuovi
-    document.getElementById('salva-btn').addEventListener('click', salvaPersonaggioSuServer);
-    console.log("Listener per 'Salva Personaggio' collegato correttamente.");
-    document.getElementById('carica-btn').style.display = 'none'; // Nascondiamo il vecchio pulsante di caricamento
+    // --- 4. ESECUZIONE E BINDING DEGLI EVENTI ---
 
-    // Esegui le inizializzazioni all'avvio
+    // Esegui le inizializzazioni comuni a tutte le schede
     inizializzaTrattiSemplici();
     inizializzaScaleDoppie();
     inizializzaRimozionePregi(); // Aggiunto per inizializzare i nuovi pulsanti
@@ -714,15 +747,37 @@ function avviaApp() {
     inizializzaCaricamentoImmagine();
     // Calcola i valori iniziali
     calcolaTrattiDerivati();
-    // Calcola l'esperienza iniziale
-    calcolaEsperienza();
-    // Nascondi la sezione specializzazioni se è vuota all'avvio
-    aggiornaElencoSpecializzazioni();
 
-    // Disabilita tutte le specializzazioni all'avvio, dato che le abilità sono a 0
-    document.querySelectorAll('#abilita .riga-tratto').forEach(riga => {
-        aggiornaStatoSpecializzazione(riga, 0);
-    });
+    // Aggiungi listener per il campo Taglia per ricalcolare quando cambia
+    const tagliaInput = document.getElementById('taglia');
+    if (tagliaInput) tagliaInput.addEventListener('input', calcolaTrattiDerivati);
+
+    // Esegui le inizializzazioni specifiche per la scheda standard
+    if (document.getElementById('character-image-container')) {
+        const expTotaleInput = document.getElementById('esperienza-totale');
+        if (expTotaleInput) expTotaleInput.addEventListener('input', calcolaEsperienza);
+        const expSpesaInput = document.getElementById('esperienza-spesa');
+        if (expSpesaInput) expSpesaInput.addEventListener('input', calcolaEsperienza);
+        calcolaEsperienza();
+    }
+
+    // Nascondi la sezione specializzazioni se è vuota all'avvio
+    if (document.getElementById('specializzazioni-attive')) {
+        aggiornaElencoSpecializzazioni();
+        // Disabilita tutte le specializzazioni all'avvio, dato che le abilità sono a 0
+        document.querySelectorAll('#abilita .riga-tratto').forEach(riga => {
+            aggiornaStatoSpecializzazione(riga, 0);
+        });
+    }
+
+    // Esegui la logica specifica per la pagina corrente
+    if (document.getElementById('lista-personaggi')) {
+        // Siamo su index.html
+        caricaListaPersonaggi();
+    } else if (window.location.pathname.includes('character.html') || window.location.pathname.includes('character-compact.html')) {
+        // Siamo su una delle due schede personaggio
+        caricaPersonaggioDaURL().then(finalizzaStatoIniziale);
+    }
     
     /**
      * Imposta lo stato corrente della scheda come "pulito" (salvato)

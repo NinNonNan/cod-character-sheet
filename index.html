@@ -95,13 +95,16 @@
         
         <section id="personaggi-salvati">
             <h2>Personaggi Salvati</h2>
-            <ul>
-                <!-- Esempio di come aggiungere un personaggio. Sostituisci con i tuoi link! -->
-                <!-- <li><a href="character-compact.html?id=ID_PERSONAGGIO_1">Nome Personaggio 1</a></li> -->
-                <!-- <li><a href="character.html?id=ID_PERSONAGGIO_2">Nome Personaggio 2</a></li> -->
+            <ul id="lista-personaggi">
+                <li>Caricamento dei personaggi dal database...</li>
             </ul>
-            <p><em>Quando salvi un nuovo personaggio, copia l'URL e aggiungilo a questa lista per trovarlo facilmente.</em></p>
         </section>
     </main>
+
+    <!-- Carichiamo gli SDK di Firebase (necessari prima di script.js) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <!-- Lo script principale gestirà tutto il resto -->
+    <script src="script.js"></script>
 </body>
 </html>
