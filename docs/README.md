@@ -11,6 +11,7 @@ Una scheda personaggio digitale e interattiva per il gioco di ruolo "Chronicles 
 - [Come si Usa](#come-si-usa)
 - [Tecnologie Utilizzate](#tecnologie-utilizzate)
 - [Sviluppi Futuri](#sviluppi-futuri)
+- [Documentazione](#documentazione)
 
 ---
 
@@ -67,11 +68,21 @@ Questo strumento è stato progettato per essere più di un semplice foglio di ca
 
 ## Sviluppi Futuri
 
-La lista delle prossime funzionalità è tracciata nel file `TODO.md`. Le priorità attuali includono:
+La lista delle prossime funzionalità è tracciata nel file `docs/TODO.md`. Le priorità attuali includono:
 
 -   **Metadati per Anteprime Social**: Aggiungere tag Open Graph per migliorare la condivisione dei link sui social media.
 -   **Layout Responsive**: Migliorare la visualizzazione su dispositivi mobili, facendo in modo che le colonne si impilino verticalmente.
 -   **Sezione "Note"**: Aggiungere un'area di testo a tutta larghezza per appunti generici.
 -   **Pulsante "Reset"**: Per riportare la scheda ai suoi valori di default.
+
+---
+
+## Documentazione
+
+Tutta la documentazione del progetto è raccolta nella cartella `docs/`:
+
+-   Manuale Utente
+-   Documentazione Tecnica
+-   TODO List
 
 ---
