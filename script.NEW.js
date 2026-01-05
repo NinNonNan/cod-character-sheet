@@ -392,8 +392,10 @@ function popolaSchedaConDati(p) {
     document.getElementById("nome").value = p.nome || "";
     if (p.imageUrl) {
         imageUrlCorrente = p.imageUrl;
-        document.getElementById("character-image-preview").src = p.imageUrl;
-        document.getElementById("character-image-container").classList.add("has-image");
+        const preview = document.getElementById("character-image-preview");
+        if (preview) preview.src = p.imageUrl;
+        const container = document.getElementById("character-image-container");
+        if (container) container.classList.add("has-image");
     }
 
     for (const t in p.tratti) {
