@@ -16,10 +16,10 @@ try {
         firebase.initializeApp(firebaseConfig);
         db = firebase.firestore();
     } else {
-        console.error("Firebase SDK non caricato.");
+        console.error(window.LANG?.msg_firebase_missing || "Firebase SDK non caricato.");
     }
 } catch (e) {
-    console.error("Errore inizializzazione Firebase:", e);
+    console.error(window.LANG?.msg_firebase_error || "Errore inizializzazione Firebase:", e);
 }
 const COLLECTION = "characters";
 
@@ -35,7 +35,8 @@ let imageUrlCorrente = null;
  * AVVIO APP
  *************************************************/
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("DOM caricato, avvio script...");
+    console.log(window.LANG?.msg_dom_loaded || "DOM caricato...");
+    localizzaPagina(); // Applica le traduzioni
     inizializzaTrattiSemplici();
     inizializzaScaleDoppie();
     inizializzaAggiuntaPregi();
@@ -67,6 +68,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const salvaBtn = document.getElementById("salva-btn");
     if (salvaBtn) salvaBtn.addEventListener("click", salvaPersonaggioSuServer);
 });
+
+/*************************************************
+ * LOCALIZZAZIONE
+ *************************************************/
+function localizzaPagina() {
+    if (!window.LANG) return;
+    
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (window.LANG[key]) {
+            // Se è un input button o submit, cambia value, altrimenti textContent
+            // Gestiamo qui solo textContent per semplicità sugli elementi di testo
+            el.textContent = window.LANG[key];
+        }
+    });
+}
 
 /*************************************************
  * INIZIALIZZAZIONI UI
@@ -156,7 +173,7 @@ function creaRigaPregio(contenitore, nome = '', valore = 0) {
 
     const input = document.createElement('input');
     input.type = 'text';
-    input.placeholder = 'Nome Pregio';
+    input.placeholder = window.LANG?.placeholder_merit || 'Nome Pregio';
     input.className = 'nome-pregio';
     input.value = nome;
 
@@ -324,7 +341,8 @@ function aggiornaElencoSpecializzazioni() {
         
         const div = document.createElement('div');
         div.className = 'riga-specializzazione';
-        div.innerHTML = `<label>${label}:</label><input type="text" data-tratto-spec="${tratto}" placeholder="Dettagli...">`;
+        const placeholder = window.LANG?.placeholder_spec || "Dettagli...";
+        div.innerHTML = `<label>${label}:</label><input type="text" data-tratto-spec="${tratto}" placeholder="${placeholder}">`;
         container.appendChild(div);
     });
     
@@ -459,7 +477,7 @@ function popolaSchedaConDati(p) {
  *************************************************/
 async function salvaPersonaggioSuServer() {
     if (!db) {
-        alert("Database non disponibile (Firebase non inizializzato).");
+        alert(window.LANG?.msg_db_unavailable || "Database non disponibile.");
         return;
     }
     const dati = raccogliDatiScheda();
@@ -474,7 +492,7 @@ async function salvaPersonaggioSuServer() {
 
     statoSalvato = JSON.stringify(dati);
     document.getElementById("salva-btn").disabled = true;
-    alert("Salvato!");
+    alert(window.LANG?.msg_saved || "Salvato!");
 }
 
 async function caricaPersonaggioDaURL() {
@@ -492,19 +510,19 @@ async function caricaListaPersonaggi() {
     if (!db) return;
     const lista = document.getElementById("lista-personaggi");
     if(!lista) return;
-    lista.innerHTML = "<li>Caricamento...</li>";
+    lista.innerHTML = `<li>${window.LANG?.msg_loading_list || "Caricamento..."}</li>`;
     
     try {
         const snap = await db.collection(COLLECTION).get();
         lista.innerHTML = "";
-        if(snap.empty) lista.innerHTML = "<li>Nessun personaggio trovato.</li>";
+        if(snap.empty) lista.innerHTML = `<li>${window.LANG?.msg_no_chars || "Nessun personaggio trovato."}</li>`;
         snap.forEach(doc => {
             const d = doc.data();
-            lista.innerHTML += `<li><a href="character.html?id=${doc.id}">${d.nome || "Senza Nome"}</a></li>`;
+            lista.innerHTML += `<li><a href="character.html?id=${doc.id}">${d.nome || (window.LANG?.default_char_name || "Senza Nome")}</a></li>`;
         });
     } catch(e) {
         console.error(e);
-        lista.innerHTML = "<li>Errore caricamento.</li>";
+        lista.innerHTML = `<li>${window.LANG?.msg_load_error || "Errore caricamento."}</li>`;
     }
 }
 
