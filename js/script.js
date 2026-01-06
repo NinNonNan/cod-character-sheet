@@ -1,26 +1,8 @@
 /*************************************************
  * FIREBASE
  *************************************************/
-const firebaseConfig = {
-    apiKey: "AIzaSyA-Vm3aVHy7m230s_YGuBYgL0MRlnF2hts",
-    authDomain: "scheda-personaggio-cod.firebaseapp.com",
-    projectId: "scheda-personaggio-cod",
-    storageBucket: "scheda-personaggio-cod.appspot.com",
-    messagingSenderId: "594233148940",
-    appId: "1:594233148940:web:9c6321b433735084269029"
-};
-
-let db = null;
-try {
-    if (typeof firebase !== "undefined") {
-        firebase.initializeApp(firebaseConfig);
-        db = firebase.firestore();
-    } else {
-        console.error(window.LANG?.msg_firebase_missing || "Firebase SDK non caricato.");
-    }
-} catch (e) {
-    console.error(window.LANG?.msg_firebase_error || "Errore inizializzazione Firebase:", e);
-}
+// Configurazione e inizializzazione gestite in js/firebase-config.js
+// La variabile 'db' è globale.
 const COLLECTION = "characters";
 
 /*************************************************

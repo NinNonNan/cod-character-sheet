@@ -1,0 +1,134 @@
+/* =========================================
+   TEMA: ANNI 50 (Typewriter / Noir)
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+
+:root {
+    --bg-body: #e8e4d8;
+    --bg-paper: #fdfcf7;
+    --text-main: #3a3a3a;
+    --accent-red: #8c2d19;
+    --accent-red-dark: #5a1d12;
+    --border-light: #d3c3a8;
+    --border-medium: #c9c3b5;
+    --btn-green: #5a6e5a;
+    --btn-green-hover: #6a7e6a;
+    --btn-text: #fdfcf7;
+}
+
+body {
+    font-family: 'Special Elite', monospace;
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+main {
+    background-color: var(--bg-paper);
+    border: 1px solid var(--border-medium);
+    border-radius: 4px;
+    box-shadow: 3px 3px 8px rgba(0,0,0,0.15);
+}
+
+/* --- Tipografia --- */
+h1, h2, h3 {
+    color: var(--accent-red);
+    border-bottom: 2px solid var(--border-light);
+    padding-bottom: 5px;
+}
+
+a {
+    color: var(--text-main);
+    border-bottom: 1px dotted var(--text-main);
+    text-decoration: none;
+}
+a:hover {
+    color: var(--accent-red);
+}
+
+/* --- Input e Form --- */
+input[type="text"], 
+input[type="number"] {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border-medium);
+    font-family: 'Special Elite', monospace;
+    color: var(--text-main);
+    font-size: 1em;
+}
+
+input:focus {
+    outline: none;
+    border-bottom-color: var(--accent-red);
+    background-color: rgba(255,255,255,0.5);
+}
+
+/* --- Elementi Grafici (Pallini, Box) --- */
+.dot i {
+    color: var(--border-medium); /* Pallino vuoto */
+    font-size: 0.8em;
+}
+
+.dot.filled i {
+    color: var(--text-main); /* Pallino pieno */
+}
+
+.box {
+    border-color: var(--text-main);
+    background-color: transparent;
+}
+
+/* Stati dei box danni */
+.box.bashing {
+    background: linear-gradient(45deg, transparent 45%, var(--text-main) 45%, var(--text-main) 55%, transparent 55%);
+}
+.box.lethal {
+    background: linear-gradient(45deg, transparent 45%, var(--text-main) 45%, var(--text-main) 55%, transparent 55%),
+                linear-gradient(-45deg, transparent 45%, var(--text-main) 45%, var(--text-main) 55%, transparent 55%);
+}
+.box.aggravated {
+    background-color: var(--text-main); /* O un asterisco */
+}
+
+.specializzazione {
+    border-color: var(--border-medium);
+}
+.specializzazione.filled {
+    background-color: var(--text-main);
+    border-color: var(--text-main);
+}
+
+/* --- Immagine --- */
+.character-image-box {
+    border-color: var(--border-medium);
+    background-color: rgba(0,0,0,0.02);
+    color: var(--border-medium);
+}
+
+/* --- Pulsanti --- */
+button, .btn {
+    background-color: var(--btn-green);
+    color: var(--btn-text);
+    border-radius: 3px;
+    border-bottom: 3px solid #3e4a3e;
+    transition: all 0.2s ease;
+}
+
+button:hover, .btn:hover {
+    background-color: var(--btn-green-hover);
+    transform: translateY(-1px);
+}
+
+button:disabled {
+    background-color: var(--border-medium);
+    border-bottom-color: var(--border-light);
+    cursor: not-allowed;
+}
+
+.btn.primary {
+    background-color: var(--accent-red);
+    border-bottom-color: var(--accent-red-dark);
+}
+.btn.primary:hover {
+    background-color: #a03522;
+}

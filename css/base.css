@@ -1,0 +1,195 @@
+/* =========================================
+   BASE LAYOUT - Posizionamento e Struttura
+   ========================================= */
+
+body {
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+main {
+    width: 100%;
+    max-width: 960px;
+    margin: 20px auto;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+header, footer {
+    text-align: center;
+    width: 100%;
+    max-width: 960px;
+}
+
+/* --- Sezioni e Intestazioni --- */
+section {
+    margin-bottom: 25px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.section-header h2 {
+    margin: 0;
+    flex-grow: 1;
+}
+
+.lock-icon {
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+
+.lock-icon:hover {
+    opacity: 1;
+}
+
+/* --- Griglie e Colonne --- */
+.gruppi-tratti-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.colonna-tratti {
+    flex: 1;
+    min-width: 250px; /* Evita che le colonne diventino troppo strette */
+}
+
+/* --- Righe e Input --- */
+.riga-tratto, 
+.riga-tratto-principale {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    min-height: 28px;
+}
+
+.riga-tratto label,
+.riga-tratto-principale label {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+input[type="text"], 
+input[type="number"] {
+    padding: 4px;
+    box-sizing: border-box;
+}
+
+/* Input nelle righe principali */
+.riga-tratto-principale input {
+    flex-grow: 0;
+    width: 60%;
+}
+
+/* --- Pallini (Dots) --- */
+.punti {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.dot {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+}
+
+/* --- Doppie Scale (Salute, Volontà) --- */
+.contenitore-doppia-scala {
+    display: flex;
+    gap: 4px;
+}
+
+.colonna-doppia {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.box {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    border: 1px solid; /* Colore definito nel tema */
+}
+
+/* --- Specializzazioni --- */
+.specializzazione {
+    width: 10px;
+    height: 10px;
+    border: 1px solid;
+    margin-right: 8px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+/* --- Immagine Personaggio --- */
+.character-image-box {
+    width: 100%;
+    aspect-ratio: 3/4; /* Formato ritratto */
+    border: 2px dashed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+}
+
+#character-image-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+}
+
+.has-image #character-image-preview {
+    display: block;
+}
+
+.has-image .image-placeholder {
+    display: none;
+}
+
+/* --- Pulsanti --- */
+button, .btn {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    font-size: 1em;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.button-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/* Utility */
+.valore-calcolato {
+    font-weight: bold;
+    min-width: 30px;
+    text-align: center;
+    display: inline-block;
+}
