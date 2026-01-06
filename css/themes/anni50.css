@@ -20,27 +20,22 @@ body {
     font-family: 'Special Elite', monospace;
     background-color: var(--bg-body);
     color: var(--text-main);
-    line-height: 1.6;
 }
 
 main {
     background-color: var(--bg-paper);
-    border: 1px solid var(--border-medium);
-    border-radius: 4px;
-    box-shadow: 3px 3px 8px rgba(0,0,0,0.15);
+    border-color: var(--border-medium);
 }
 
 /* --- Tipografia --- */
-h1, h2, h3 {
+h1, h2, h3, .section-header h2 {
     color: var(--accent-red);
     border-bottom: 2px solid var(--border-light);
-    padding-bottom: 5px;
 }
 
 a {
     color: var(--text-main);
     border-bottom: 1px dotted var(--text-main);
-    text-decoration: none;
 }
 a:hover {
     color: var(--accent-red);
@@ -49,24 +44,25 @@ a:hover {
 /* --- Input e Form --- */
 input[type="text"], 
 input[type="number"] {
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid var(--border-medium);
     font-family: 'Special Elite', monospace;
     color: var(--text-main);
-    font-size: 1em;
+    border-bottom: 1px solid var(--border-medium);
 }
 
 input:focus {
-    outline: none;
     border-bottom-color: var(--accent-red);
     background-color: rgba(255,255,255,0.5);
+}
+
+/* Le "caselline" (valori calcolati) hanno il bordo completo */
+.valore-calcolato {
+    border: 1px solid var(--border-medium) !important;
+    background-color: rgba(255,255,255,0.3);
 }
 
 /* --- Elementi Grafici (Pallini, Box) --- */
 .dot i {
     color: var(--border-medium); /* Pallino vuoto */
-    font-size: 0.8em;
 }
 
 .dot.filled i {
@@ -87,7 +83,15 @@ input:focus {
                 linear-gradient(-45deg, transparent 45%, var(--text-main) 45%, var(--text-main) 55%, transparent 55%);
 }
 .box.aggravated {
-    background-color: var(--text-main); /* O un asterisco */
+    background: linear-gradient(45deg, transparent 45%, var(--text-main) 45%, var(--text-main) 55%, transparent 55%),
+                linear-gradient(-45deg, transparent 45%, var(--text-main) 45%, var(--text-main) 55%, transparent 55%),
+                linear-gradient(to right, transparent 45%, var(--text-main) 45%, var(--text-main) 55%, transparent 55%);
+}
+
+/* Stati Volontà e Sanità */
+.box.volonta-spesa,
+.box.sanita-spesa {
+    background-color: var(--text-main);
 }
 
 .specializzazione {
@@ -109,20 +113,16 @@ input:focus {
 button, .btn {
     background-color: var(--btn-green);
     color: var(--btn-text);
-    border-radius: 3px;
-    border-bottom: 3px solid #3e4a3e;
-    transition: all 0.2s ease;
+    border-bottom-color: #3e4a3e;
 }
 
 button:hover, .btn:hover {
     background-color: var(--btn-green-hover);
-    transform: translateY(-1px);
 }
 
 button:disabled {
     background-color: var(--border-medium);
     border-bottom-color: var(--border-light);
-    cursor: not-allowed;
 }
 
 .btn.primary {
@@ -131,4 +131,21 @@ button:disabled {
 }
 .btn.primary:hover {
     background-color: #a03522;
+}
+
+/* --- Pulsanti Pregi --- */
+.aggiungi-pregio-btn {
+    background-color: var(--btn-green);
+    color: var(--btn-text);
+}
+.aggiungi-pregio-btn:hover {
+    background-color: var(--btn-green-hover);
+}
+
+.rimuovi-pregio-btn {
+    background-color: var(--accent-red);
+    color: var(--btn-text);
+}
+.rimuovi-pregio-btn:hover {
+    background-color: var(--accent-red-dark);
 }

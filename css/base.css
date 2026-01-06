@@ -10,6 +10,7 @@ body {
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
+    line-height: 1.6;
 }
 
 main {
@@ -18,6 +19,9 @@ main {
     margin: 20px auto;
     padding: 30px;
     box-sizing: border-box;
+    border: 1px solid transparent; /* Colore nel tema */
+    border-radius: 4px;
+    box-shadow: 3px 3px 8px rgba(0,0,0,0.15);
 }
 
 header, footer {
@@ -41,6 +45,18 @@ section {
 .section-header h2 {
     margin: 0;
     flex-grow: 1;
+    border-bottom: 2px solid transparent; /* Colore nel tema */
+    padding-bottom: 5px;
+}
+
+h1, h3 {
+    border-bottom: 2px solid transparent; /* Colore nel tema */
+    padding-bottom: 5px;
+}
+
+a {
+    border-bottom: 1px dotted transparent; /* Colore nel tema */
+    text-decoration: none;
 }
 
 .lock-icon {
@@ -64,6 +80,7 @@ section {
 .colonna-tratti {
     flex: 1;
     min-width: 250px; /* Evita che le colonne diventino troppo strette */
+    max-width: 100%;
 }
 
 /* --- Righe e Input --- */
@@ -80,18 +97,54 @@ section {
 .riga-tratto-principale label {
     flex-grow: 1;
     margin-right: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.9em;
 }
 
 input[type="text"], 
 input[type="number"] {
     padding: 4px;
     box-sizing: border-box;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid transparent; /* Colore nel tema */
+    font-size: 1em;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+/* Nascondi le frecce degli input numerici per uniformità */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input:focus {
+    outline: none;
 }
 
 /* Input nelle righe principali */
 .riga-tratto-principale input {
     flex-grow: 0;
-    width: 60%;
+    width: auto;
+}
+
+/* Input all'interno delle righe dei tratti (es. Pregi) */
+.riga-tratto input {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    margin-right: 10px;
+}
+
+/* Solo gli input di testo normali (Nome, Virtù, ecc.) devono allargarsi */
+.riga-tratto-principale input[type="text"]:not(.valore-calcolato) {
+    flex-grow: 1;
 }
 
 /* --- Pallini (Dots) --- */
@@ -108,6 +161,10 @@ input[type="number"] {
     justify-content: center;
     width: 16px;
     height: 16px;
+}
+
+.dot i {
+    font-size: 0.8em;
 }
 
 /* --- Doppie Scale (Salute, Volontà) --- */
@@ -127,7 +184,7 @@ input[type="number"] {
     width: 14px;
     height: 14px;
     cursor: pointer;
-    border: 1px solid; /* Colore definito nel tema */
+    border: 1px solid transparent; /* Colore definito nel tema */
 }
 
 /* --- Specializzazioni --- */
@@ -144,7 +201,7 @@ input[type="number"] {
 .character-image-box {
     width: 100%;
     aspect-ratio: 3/4; /* Formato ritratto */
-    border: 2px dashed;
+    border: 2px dashed transparent; /* Colore nel tema */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -177,6 +234,13 @@ button, .btn {
     text-decoration: none;
     display: inline-block;
     text-align: center;
+    border-radius: 3px;
+    border-bottom: 3px solid transparent; /* Colore nel tema */
+    transition: all 0.2s ease;
+}
+
+button:hover, .btn:hover {
+    transform: translateY(-1px);
 }
 
 .button-container {
@@ -189,7 +253,62 @@ button, .btn {
 /* Utility */
 .valore-calcolato {
     font-weight: bold;
-    min-width: 30px;
+    width: 60px;
+    height: 30px;
     text-align: center;
+    box-sizing: border-box;
+    vertical-align: middle;
+    margin: 0;
     display: inline-block;
+    line-height: 28px; /* Centratura verticale testo (30px - 2px bordi) */
+    padding: 0 !important;
+    border-radius: 0;
+}
+
+/* --- Pulsanti Pregi (Diagonali) --- */
+.pregio-buttons {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+.pregio-buttons button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1;
+    min-width: 0;
+    display: flex;
+    box-sizing: border-box; /* Assicura che il padding non ingrandisca il bottone */
+}
+
+.pregio-buttons button:hover {
+    transform: none; /* Evita che il triangolo si sposti rompendo il quadrato */
+}
+
+.pregio-buttons .aggiungi-pregio-btn {
+    clip-path: polygon(0 0, 100% 0, 100% 100%); /* Triangolo alto-destra */
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding-right: 6px;
+    padding-top: 6px;
+}
+
+.pregio-buttons .rimuovi-pregio-btn {
+    clip-path: polygon(0 0, 100% 100%, 0 100%); /* Triangolo basso-sinistra */
+    justify-content: flex-start;
+    align-items: flex-end;
+    padding-left: 6px;
+    padding-bottom: 6px;
 }
