@@ -63,6 +63,8 @@ a {
     cursor: pointer;
     opacity: 0.5;
     transition: opacity 0.2s;
+    width: 24px;
+    text-align: center;
 }
 
 .lock-icon:hover {
@@ -74,33 +76,101 @@ a {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    align-items: flex-start;
+    align-items: stretch;
 }
 
 .colonna-tratti {
     flex: 1;
-    min-width: 250px; /* Evita che le colonne diventino troppo strette */
+    min-width: 240px; /* Ridotto leggermente per garantire 3 colonne */
     max-width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.col-wide {
+    flex: 2;
+    min-width: 320px;
+}
+
+.col-narrow {
+    flex: 1;
+    min-width: 250px;
 }
 
 /* --- Righe e Input --- */
 .riga-tratto, 
 .riga-tratto-principale {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     margin-bottom: 8px;
     min-height: 28px;
 }
 
-.riga-tratto label,
-.riga-tratto-principale label {
-    flex-grow: 1;
+.riga-tratto {
+    justify-content: space-between;
+}
+
+.riga-tratto-principale {
+    justify-content: flex-start;
+}
+
+/* --- Specializzazioni (generate dinamicamente) --- */
+.riga-specializzazione {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.riga-specializzazione label {
+    width: 210px; /* Larghezza fissa per allineare gli input */
     margin-right: 10px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 0.9em;
+    flex-shrink: 0;
+}
+
+.riga-specializzazione input {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.riga-tratto label,
+.riga-tratto-principale label {
+    margin-right: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.9em;
+    flex-shrink: 0;
+}
+
+/* Riduzione font specifica per le abilità per evitare troncamenti */
+#abilita .riga-tratto label {
+    font-size: 0.8em;
+}
+
+.riga-tratto label {
+    flex-grow: 1;
+}
+
+.riga-tratto-principale label {
+    flex-grow: 0;
+    width: 160px; /* Larghezza standard per etichette normali (Virtù, Salute, ecc.) */
+    font-size: 0.85em;
+    white-space: nowrap;
+}
+
+/* Classe per righe con etichette lunghe (Modificatore Iniziativa, Esperienza) */
+.riga-label-lunga label {
+    width: 260px;
+}
+
+/* Override per la sezione Info dove le etichette sono corte (Nome, Cronaca...) */
+#info-personaggio .riga-tratto-principale label {
+    width: 130px;
+    margin-right: 5px;
 }
 
 input[type="text"], 
@@ -159,8 +229,8 @@ input:focus {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 16px;
-    height: 16px;
+    width: 13px; /* Ridotto per guadagnare spazio */
+    height: 13px;
 }
 
 .dot i {
@@ -181,8 +251,8 @@ input:focus {
 }
 
 .box {
-    width: 14px;
-    height: 14px;
+    width: 13px; /* Ridotto per guadagnare spazio */
+    height: 13px;
     cursor: pointer;
     border: 1px solid transparent; /* Colore definito nel tema */
 }
@@ -200,7 +270,9 @@ input:focus {
 /* --- Immagine Personaggio --- */
 .character-image-box {
     width: 100%;
-    aspect-ratio: 3/4; /* Formato ritratto */
+    flex-grow: 1;
+    flex-basis: 0;
+    min-height: 0;
     border: 2px dashed transparent; /* Colore nel tema */
     display: flex;
     justify-content: center;
@@ -213,7 +285,7 @@ input:focus {
 #character-image-preview {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     display: none;
 }
 
@@ -253,7 +325,8 @@ button:hover, .btn:hover {
 /* Utility */
 .valore-calcolato {
     font-weight: bold;
-    width: 60px;
+    width: 60px !important;
+    flex: none;
     height: 30px;
     text-align: center;
     box-sizing: border-box;
@@ -311,4 +384,30 @@ button:hover, .btn:hover {
     align-items: flex-end;
     padding-left: 6px;
     padding-bottom: 6px;
+}
+
+/* --- Blocco Sezioni --- */
+.section-locked input,
+.section-locked .punti,
+.section-locked .box,
+.section-locked .specializzazione,
+.section-locked button,
+.section-locked .character-image-box {
+    pointer-events: none;
+}
+
+/* Opacità ridotta per elementi grafici, ma NON per il testo (input) */
+.section-locked button,
+.section-locked .character-image-box {
+    opacity: 0.6;
+}
+
+/* Schiarisci solo i pallini vuoti quando la sezione è bloccata */
+.section-locked .dot:not(.filled) i {
+    opacity: 0.3;
+}
+
+/* Nascondi i pulsanti dei pregi quando la sezione è bloccata */
+.section-locked .pregio-buttons {
+    display: none;
 }

@@ -39,6 +39,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const expInputs = document.querySelectorAll('#esperienza-totale, #esperienza-spesa');
     expInputs.forEach(input => input.addEventListener('input', calcolaEsperienza));
 
+    // Listener per aggiornamento Salute quando cambia la Taglia
+    const tagliaInput = document.getElementById('taglia');
+    if (tagliaInput) tagliaInput.addEventListener('input', calcolaTrattiDerivati);
+
     if (document.getElementById("lista-personaggi")) {
         caricaListaPersonaggi();
     }
@@ -274,7 +278,7 @@ function getValoreTratto(tratto) {
 }
 
 function calcolaTrattiDerivati() {
-    const iniziativa = getValoreTratto("prontezza") + getValoreTratto("autocontrollo");
+    const iniziativa = getValoreTratto("destrezza") + getValoreTratto("autocontrollo");
     const difesa = Math.min(getValoreTratto("prontezza"), getValoreTratto("destrezza"));
     const velocita = getValoreTratto("forza") + getValoreTratto("destrezza") + 5;
 

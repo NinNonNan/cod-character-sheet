@@ -86,15 +86,15 @@ window.LANG = {
     label_sanity: "Sanità Mentale:",
     label_willpower: "Volontà:",
     label_size: "Taglia:",
-    label_init_mod: "Mod. Iniziativa:",
+    label_init_mod: "Modificatore Iniziativa:",
     label_defense: "Difesa:",
     label_speed: "Velocità:",
     label_armor: "Armatura:",
     
     // Esperienza
-    label_exp_total: "Exp. Totale:",
-    label_exp_spent: "Exp. Spesa:",
-    label_exp_remaining: "Exp. Rimanente:",
+    label_exp_total: "Esperienza Totale:",
+    label_exp_spent: "Esperienza Spesa:",
+    label_exp_remaining: "Esperienza Rimanente:",
 
     // UI Pulsanti e Placeholder
     btn_save: "Salva Personaggio",
