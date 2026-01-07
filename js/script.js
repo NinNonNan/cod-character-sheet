@@ -16,7 +16,8 @@ let imageUrlCorrente = null;
 /*************************************************
  * AVVIO APP
  *************************************************/
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+    await caricaLingua();
     console.log(window.LANG?.msg_dom_loaded || "DOM caricato...");
     localizzaPagina(); // Applica le traduzioni
     inizializzaTrattiSemplici();
@@ -58,6 +59,15 @@ document.addEventListener("DOMContentLoaded", () => {
 /*************************************************
  * LOCALIZZAZIONE
  *************************************************/
+async function caricaLingua() {
+    try {
+        const response = await fetch('language/it.json');
+        window.LANG = await response.json();
+    } catch (error) {
+        console.error("Errore caricamento lingua:", error);
+    }
+}
+
 function localizzaPagina() {
     if (!window.LANG) return;
     

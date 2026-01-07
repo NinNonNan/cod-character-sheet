@@ -3,6 +3,8 @@
 Una scheda personaggio digitale e interattiva per il gioco di ruolo "Chronicles of Darkness" (nWoD), con salvataggio e caricamento dei dati online tramite Firebase.
 
 
+**Link alla pagina pubblicata:** [https://ninnonnan.github.io/cod-character-sheet/](https://ninnonnan.github.io/cod-character-sheet/)
+
 *(Nota: Sostituisci questo link con uno screenshot reale del tuo progetto!)*
 
 ## Indice
