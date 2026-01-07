@@ -67,7 +67,7 @@
     "label_sanity": "Sanità Mentale:",
     "label_willpower": "Volontà:",
     "label_size": "Taglia:",
-    "label_init_mod": "Modificatore Iniziativa:",
+    "label_init_mod": "Mod. Iniziativa:",
     "label_defense": "Difesa:",
     "label_speed": "Velocità:",
     "label_armor": "Armatura:",
@@ -85,5 +85,12 @@
     "msg_firebase_missing": "Firebase SDK non caricato.",
     "msg_dom_loaded": "DOM caricato, avvio script...",
     "title_lock": "Blocca/Sblocca Sezione",
-    "btn_back_home": "← Torna all'Archivio"
+    "btn_back_home": "← Torna all'Archivio",
+    "label_notes": "Note:",
+    "tooltip_health": "Costituzione + Taglia",
+    "tooltip_sanity": "Fermezza + Autocontrollo + 5",
+    "tooltip_willpower": "Fermezza + Autocontrollo",
+    "tooltip_init": "Destrezza + Autocontrollo",
+    "tooltip_defense": "Minore tra Prontezza e Destrezza",
+    "tooltip_speed": "Forza + Destrezza + 5"
 }

@@ -9,6 +9,8 @@ const COLLECTION = "characters";
  * GLOBALI
  *************************************************/
 const MAX_DOTS_DEFAULT = 5;
+const HUMAN_MAX_TRAIT = 10;
+const TRATTI_LIMITATI = ['integrita', 'volonta'];
 let personaggioIdCorrente = null;
 let statoSalvato = "";
 let imageUrlCorrente = null;
@@ -26,6 +28,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     inizializzaRimozionePregi();
     inizializzaBloccoSezioni();
     inizializzaCaricamentoImmagine();
+    applicaStileLimiti();
     calcolaTrattiDerivati();
 
     // Listener per i quadrati di specializzazione nelle abilità
@@ -77,6 +80,13 @@ function localizzaPagina() {
             // Se è un input button o submit, cambia value, altrimenti textContent
             // Gestiamo qui solo textContent per semplicità sugli elementi di testo
             el.textContent = window.LANG[key];
+        }
+    });
+
+    document.querySelectorAll("[data-i18n-title]").forEach(el => {
+        const key = el.getAttribute("data-i18n-title");
+        if (window.LANG[key]) {
+            el.title = window.LANG[key];
         }
     });
 }
@@ -158,6 +168,34 @@ function inizializzaRimozionePregi() {
     });
 }
 
+function applicaStileLimiti() {
+    TRATTI_LIMITATI.forEach(tratto => {
+        // Gestione Integrità (Dots only)
+        const containerDots = document.querySelector(`.punti[data-tratto="${tratto}"]`);
+        if (containerDots) {
+            containerDots.querySelectorAll('.dot').forEach(dot => {
+                if (parseInt(dot.dataset.value) > HUMAN_MAX_TRAIT) {
+                    dot.classList.add('over-limit');
+                    const icon = dot.querySelector('i');
+                    if(icon) icon.className = "fas fa-circle"; // Forza icona piena
+                }
+            });
+        }
+
+        // Gestione Volontà (Doppia scala)
+        const containerScale = document.querySelector(`.contenitore-doppia-scala[data-tratto="${tratto}"]`);
+        if (containerScale) {
+            containerScale.querySelectorAll('.colonna-doppia').forEach(col => {
+                if (parseInt(col.querySelector('.dot').dataset.value) > HUMAN_MAX_TRAIT) {
+                    col.classList.add('over-limit');
+                    const icon = col.querySelector('.dot i');
+                    if(icon) icon.className = "fas fa-circle"; // Forza icona piena
+                }
+            });
+        }
+    });
+}
+
 function creaRigaPregio(contenitore, nome = '', valore = 0) {
     const riga = document.createElement('div');
     riga.className = 'riga-tratto';
@@ -233,7 +271,7 @@ function inizializzaTrattiSempliciPerElemento(container, valoreIniziale = 0) {
 function gestisciClickPallino(e) {
     // Usa closest per intercettare il click anche sull'icona <i> interna
     const dot = e.target.closest(".dot");
-    if (!dot) return;
+    if (!dot || dot.classList.contains('over-limit')) return;
 
     const container = dot.parentElement;
     const value = parseInt(dot.dataset.value);
@@ -246,6 +284,7 @@ function gestisciClickPallino(e) {
 
 function aggiornaPallini(container, value) {
     container.querySelectorAll(".dot").forEach(dot => {
+        if (dot.classList.contains('over-limit')) return;
         const isFilled = parseInt(dot.dataset.value) <= value;
         dot.classList.toggle("filled", isFilled);
         const icon = dot.querySelector("i");
@@ -257,6 +296,7 @@ function aggiornaPallini(container, value) {
 
 function gestisciClickTracciato(e) {
     if (!e.target.classList.contains("box")) return;
+    if (e.target.closest('.over-limit')) return;
     
     const container = e.target.closest('.contenitore-doppia-scala');
     const tratto = container.dataset.tratto;
@@ -309,6 +349,7 @@ function aggiornaLimiteTracciato(id, max) {
     const container = document.getElementById(id);
     if(!container) return;
     container.querySelectorAll('.dot').forEach(dot => {
+        if (dot.closest('.over-limit')) return;
         const isFilled = parseInt(dot.dataset.value) <= max;
         dot.classList.toggle('filled', isFilled);
         const icon = dot.querySelector("i");
@@ -362,7 +403,7 @@ function raccogliDatiScheda() {
     };
 
     // Info di base
-    ['cronaca', 'concetto', 'giocatore', 'eta', 'fazione', 'virtu', 'vizio', 'taglia', 'armatura', 'esperienza-totale', 'esperienza-spesa'].forEach(id => {
+    ['cronaca', 'concetto', 'giocatore', 'eta', 'fazione', 'virtu', 'vizio', 'taglia', 'armatura', 'esperienza-totale', 'esperienza-spesa', 'note'].forEach(id => {
         const el = document.getElementById(id);
         if(el) p.info[id] = el.value;
     });

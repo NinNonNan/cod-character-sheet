@@ -221,53 +221,63 @@
                 <i class="lock-icon fas fa-eye" title="Blocca/Sblocca Sezione" data-i18n-title="title_lock"></i>
                 <h2 data-i18n="sect_main_traits"></h2>
             </div>
-            <div class="riga-tratto-principale riga-tratto-spaziato">
-                <label for="integrita" data-i18n="label_integrity"></label>
-                <div class="punti" data-tratto="integrita" data-max="15"></div>
-            </div>
-            <div class="riga-tratto-principale riga-doppia-scala">
-                <label data-i18n="label_health"></label>
-                <div class="contenitore-doppia-scala" id="scala-salute" data-tratto="salute" data-max="15"></div>
-            </div>
-            <div class="riga-tratto-principale riga-doppia-scala">
-                <label data-i18n="label_sanity"></label>
-                <div class="contenitore-doppia-scala" id="scala-sanita" data-tratto="sanita" data-max="15"></div>
-            </div>
-            <div class="riga-tratto-principale riga-doppia-scala">
-                <label data-i18n="label_willpower"></label>
-                <div class="contenitore-doppia-scala" id="scala-volonta" data-tratto="volonta" data-max="15"></div>
-            </div>
-            <div class="riga-tratto-principale riga-tratto-semplice">
-                <label for="taglia" data-i18n="label_size"></label>
-                <input type="number" id="taglia" value="5" class="valore-calcolato">
-            </div>
-            <div class="riga-tratto-principale">
-                <label for="valore-iniziativa" data-i18n="label_init_mod"></label>
-                <span id="valore-iniziativa" class="valore-calcolato">0</span>
-            </div>
-            <div class="riga-tratto-principale">
-                <label for="valore-difesa" data-i18n="label_defense"></label>
-                <span id="valore-difesa" class="valore-calcolato">0</span>
-            </div>
-            <div class="riga-tratto-principale">
-                <label for="valore-velocita" data-i18n="label_speed"></label>
-                <span id="valore-velocita" class="valore-calcolato">0</span>
-            </div>
-            <div class="riga-tratto-principale">
-                <label for="armatura" data-i18n="label_armor"></label>
-                <input type="text" id="armatura" value="0" class="valore-calcolato">
-            </div>
-            <div class="riga-tratto-principale riga-tratto-spaziato">
-                <label for="esperienza-totale" data-i18n="label_exp_total"></label>
-                <input type="number" id="esperienza-totale" value="0" class="valore-calcolato">
-            </div>
-            <div class="riga-tratto-principale">
-                <label for="esperienza-spesa" data-i18n="label_exp_spent"></label>
-                <input type="number" id="esperienza-spesa" value="0" class="valore-calcolato">
-            </div>
-            <div class="riga-tratto-principale">
-                <label for="esperienza-rimanente" data-i18n="label_exp_remaining"></label>
-                <span id="esperienza-rimanente" class="valore-calcolato">0</span>
+            <div class="gruppi-tratti-container">
+                <div class="colonna-tratti">
+                    <div class="riga-tratto-principale riga-tratto-spaziato">
+                        <label for="integrita" data-i18n="label_integrity"></label>
+                        <div class="punti" data-tratto="integrita" data-max="15"></div>
+                    </div>
+                    <div class="riga-tratto-principale riga-doppia-scala">
+                        <label data-i18n="label_health" data-i18n-title="tooltip_health"></label>
+                        <div class="contenitore-doppia-scala" id="scala-salute" data-tratto="salute" data-max="15"></div>
+                    </div>
+                    <div class="riga-tratto-principale riga-doppia-scala">
+                        <label data-i18n="label_sanity" data-i18n-title="tooltip_sanity"></label>
+                        <div class="contenitore-doppia-scala" id="scala-sanita" data-tratto="sanita" data-max="15"></div>
+                    </div>
+                    <div class="riga-tratto-principale riga-doppia-scala">
+                        <label data-i18n="label_willpower" data-i18n-title="tooltip_willpower"></label>
+                        <div class="contenitore-doppia-scala" id="scala-volonta" data-tratto="volonta" data-max="15"></div>
+                    </div>
+                    <div class="riga-tratto-principale riga-tratto-semplice">
+                        <label for="taglia" data-i18n="label_size"></label>
+                        <input type="number" id="taglia" value="5" class="valore-calcolato">
+                    </div>
+                    <div class="riga-tratto-principale">
+                        <label for="valore-iniziativa" data-i18n="label_init_mod" data-i18n-title="tooltip_init"></label>
+                        <span id="valore-iniziativa" class="valore-calcolato">0</span>
+                    </div>
+                    <div class="riga-tratto-principale">
+                        <label for="valore-difesa" data-i18n="label_defense" data-i18n-title="tooltip_defense"></label>
+                        <span id="valore-difesa" class="valore-calcolato">0</span>
+                    </div>
+                    <div class="riga-tratto-principale">
+                        <label for="valore-velocita" data-i18n="label_speed" data-i18n-title="tooltip_speed"></label>
+                        <span id="valore-velocita" class="valore-calcolato">0</span>
+                    </div>
+                    <div class="riga-tratto-principale">
+                        <label for="armatura" data-i18n="label_armor"></label>
+                        <input type="text" id="armatura" value="0" class="valore-calcolato">
+                    </div>
+                    <div class="riga-tratto-principale riga-tratto-spaziato">
+                        <label for="esperienza-totale" data-i18n="label_exp_total"></label>
+                        <input type="number" id="esperienza-totale" value="0" class="valore-calcolato">
+                    </div>
+                    <div class="riga-tratto-principale">
+                        <label for="esperienza-spesa" data-i18n="label_exp_spent"></label>
+                        <input type="number" id="esperienza-spesa" value="0" class="valore-calcolato">
+                    </div>
+                    <div class="riga-tratto-principale">
+                        <label for="esperienza-rimanente" data-i18n="label_exp_remaining"></label>
+                        <span id="esperienza-rimanente" class="valore-calcolato">0</span>
+                    </div>
+                </div>
+                <div class="colonna-tratti">
+                    <div class="riga-tratto-principale" style="height: 100%; align-items: stretch; flex-direction: column;">
+                        <label for="note" data-i18n="label_notes" style="margin-bottom: 5px; width: 90%; margin-left: auto; margin-right: auto;"></label>
+                        <textarea id="note" style="flex-grow: 1; width: 90%; margin: 0 auto; resize: none; background-color: rgba(255,255,255,0.3); background-image: linear-gradient(transparent 27px, var(--border-medium) 27px); background-size: 100% 28px; background-attachment: local; line-height: 28px; border: 1px solid var(--border-medium); font-family: inherit; padding: 0 10px; box-sizing: border-box;"></textarea>
+                    </div>
+                </div>
             </div>
         </section>
     </main>

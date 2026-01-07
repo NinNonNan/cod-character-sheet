@@ -233,6 +233,12 @@ input:focus {
     height: 13px;
 }
 
+/* Correzione larghezza Integrità per allineamento con le scale doppie (box 13px + 2px border = 15px) */
+.punti[data-tratto="integrita"] .dot {
+    width: 15px;
+    height: 15px;
+}
+
 .dot i {
     font-size: 0.8em;
 }
@@ -410,4 +416,17 @@ button:hover, .btn:hover {
 /* Nascondi i pulsanti dei pregi quando la sezione è bloccata */
 .section-locked .pregio-buttons {
     display: none;
+}
+
+/* --- Limiti Umani (Integrità/Volontà > 10) --- */
+.over-limit {
+    pointer-events: none;
+}
+.over-limit .dot i,
+.dot.over-limit i {
+    color: #999 !important; /* Grigio */
+}
+.over-limit .box {
+    background-color: #999 !important; /* Grigio pieno */
+    border-color: #666 !important;
 }
