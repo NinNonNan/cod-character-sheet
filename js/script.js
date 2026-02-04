@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     inizializzaBloccoSezioni();
     inizializzaCaricamentoImmagine();
     applicaStileLimiti();
+    inizializzaIntegrazioneDiscord();
     calcolaTrattiDerivati();
 
     // Listener per i quadrati di specializzazione nelle abilità
@@ -321,6 +322,137 @@ function gestisciClickTracciato(e) {
 }
 
 /*************************************************
+ * INTEGRAZIONE DISCORD
+ *************************************************/
+function inizializzaIntegrazioneDiscord() {
+    const webhookInput = document.getElementById('discord-webhook-url');
+    
+    // 1. Carica URL salvato in locale (non su DB per privacy)
+    if (webhookInput) {
+        const savedUrl = localStorage.getItem('cod_discord_webhook');
+        if (savedUrl) webhookInput.value = savedUrl;
+
+        webhookInput.addEventListener('change', (e) => {
+            localStorage.setItem('cod_discord_webhook', e.target.value);
+        });
+    }
+
+    // 2. Rendi le label cliccabili per il tiro
+    document.querySelectorAll('.riga-tratto label, .riga-tratto-principale label').forEach(label => {
+        // Escludiamo label che non hanno pallini associati direttamente o sono input di testo
+        const parent = label.parentElement;
+        const hasDots = parent.querySelector('.punti') || parent.querySelector('.contenitore-doppia-scala');
+        
+        if (hasDots) {
+            label.classList.add('label-tirabile');
+            label.title = "Clicca per tirare su Discord";
+            label.addEventListener('click', gestisciTiroDiscord);
+        }
+    });
+}
+
+async function gestisciTiroDiscord(e) {
+    const webhookUrl = localStorage.getItem('cod_discord_webhook');
+    if (!webhookUrl) {
+        alert("Per tirare i dadi, inserisci prima un URL Webhook di Discord in fondo alla pagina.");
+        document.getElementById('discord-webhook-url')?.focus();
+        return;
+    }
+
+    const label = e.target;
+    const nomeTratto = label.textContent;
+    const parent = label.parentElement;
+    
+    // Trova il valore
+    let pool = 0;
+    const dotsContainer = parent.querySelector('.punti');
+    const scaleContainer = parent.querySelector('.contenitore-doppia-scala');
+
+    if (dotsContainer) {
+        pool = dotsContainer.querySelectorAll('.dot.filled').length;
+    } else if (scaleContainer) {
+        // Per salute/volontà usiamo il massimo (pallini totali) non quelli spesi
+        // O se preferisci il valore corrente, bisogna cambiare logica. 
+        // Di solito si tira sul punteggio permanente (es. Volontà permanente).
+        pool = scaleContainer.querySelectorAll('.dot.filled').length;
+    }
+
+    if (pool === 0) {
+        // Chance die?
+        if(!confirm(`Hai 0 pallini in ${nomeTratto}. Vuoi tirare un Chance Die?`)) return;
+        pool = 0; // Gestito nella funzione di tiro
+    }
+
+    const nomePersonaggio = document.getElementById('nome')?.value || "Sconosciuto";
+    const risultato = eseguiTiroDadi(pool);
+    
+    await inviaADiscord(webhookUrl, nomePersonaggio, nomeTratto, risultato);
+}
+
+function eseguiTiroDadi(pool) {
+    let dadi = [];
+    let successi = 0;
+    let isChanceDie = (pool <= 0);
+    let numDadi = isChanceDie ? 1 : pool;
+    let esplosi = 0;
+
+    // Tiro iniziale
+    for (let i = 0; i < numDadi; i++) {
+        let val = Math.floor(Math.random() * 10) + 1;
+        dadi.push(val);
+        
+        if (isChanceDie) {
+            if (val === 10) successi++;
+        } else {
+            if (val >= 8) successi++;
+        }
+
+        // 10-again (non si applica al chance die solitamente, ma in CoD 2e il chance die è solo un dado singolo, se fa 10 è successo. Alcune regole fanno esplodere il 10 anche nel chance die. Assumiamo di sì per semplicità o no per prudenza. CoD standard: Chance die 10 is a success, can explode).
+        while (val === 10) {
+            esplosi++;
+            val = Math.floor(Math.random() * 10) + 1;
+            dadi.push(val + "!"); // Segna come esploso
+            if (val >= 8 || (isChanceDie && val === 10)) successi++;
+            // Nota: su Chance die, i successivi 10 contano come successi aggiuntivi
+        }
+    }
+
+    return {
+        pool: pool,
+        dadi: dadi,
+        successi: successi,
+        isChanceDie: isChanceDie
+    };
+}
+
+async function inviaADiscord(url, personaggio, tratto, risultato) {
+    const color = risultato.successi > 0 ? 5763719 : 15548997; // Verde o Rosso
+    
+    const payload = {
+        username: personaggio,
+        embeds: [{
+            title: `Tiro su: ${tratto}`,
+            description: `**Risultato:** ${risultato.successi} Successi\n**Dadi:** [${risultato.dadi.join(', ')}]`,
+            color: color,
+            footer: {
+                text: risultato.isChanceDie ? "Chance Die" : `Pool: ${risultato.pool} dadi`
+            }
+        }]
+    };
+
+    try {
+        await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+    } catch (err) {
+        console.error("Errore invio Discord", err);
+        alert("Errore nell'invio a Discord. Controlla l'URL del Webhook.");
+    }
+}
+
+/*************************************************
  * DERIVATI
  *************************************************/
 function getValoreTratto(tratto) {
@@ -575,3 +707,4 @@ function controllaModifiche() {
     document.getElementById("salva-btn").disabled =
         JSON.stringify(raccogliDatiScheda()) === statoSalvato;
 }
+    if (
