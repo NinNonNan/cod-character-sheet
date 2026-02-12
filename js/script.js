@@ -707,4 +707,3 @@ function controllaModifiche() {
     document.getElementById("salva-btn").disabled =
         JSON.stringify(raccogliDatiScheda()) === statoSalvato;
 }
-    if (
